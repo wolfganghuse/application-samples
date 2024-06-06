@@ -1,0 +1,11 @@
+apiVersion: dataservices.nutanix.com/v1alpha1
+kind: ProtectionPlan
+metadata: 
+ name: pacman-protectionplan
+ namespace: pacman
+spec: 
+ scheduleName: minute-interval
+ retentionPolicy:
+     retentionCount: 3
+ replicationConfigs:
+   - replicationTargetName: remote-ocp

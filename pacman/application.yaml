@@ -1,0 +1,11 @@
+apiVersion: dataservices.nutanix.com/v1alpha1
+kind: Application
+metadata:
+  name: pacman-app
+  namespace: pacman
+spec:
+ applicationSelector:
+   resourceLabelSelectors:
+     - excludeResources:
+         - group: operators.coreos.com
+           kind: ClusterServiceVersion
