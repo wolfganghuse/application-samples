@@ -5,7 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/name: glb-pacman
 spec:
-  # Added for f5 demonstration
+  # Added for glb demonstration
   host: pacman.cloudnative.nvdlab.net
   path: "/"
   to:
