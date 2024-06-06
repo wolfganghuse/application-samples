@@ -3,8 +3,6 @@ kind: AppProtectionPlan
 metadata:
  name: pacmanprotect-policy
 spec:
-  applicationName: pacman
-  labels:
-    appName: pacman-app
+  applicationName: pacman-app
   protectionPlanNames:
   - pacman-protectionplan
