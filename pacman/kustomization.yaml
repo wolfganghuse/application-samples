@@ -8,4 +8,5 @@ resources:
 - pacman-route.yaml
 - pacman-glb-route.yaml
 - application.yaml
-- protection-plan.yaml
+- protectionplan.yaml
+- appprotectionplan.yaml
