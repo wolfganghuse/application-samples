@@ -7,4 +7,4 @@ spec:
  retentionPolicy:
      retentionCount: 3
  replicationConfigs:
-   - replicationTargetName: remote-ocp
+   - replicationTargetName: remote-pacman
