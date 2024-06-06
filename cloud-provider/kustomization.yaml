@@ -1,4 +1,0 @@
-namespace: provider
-resources:
-- service.yaml
-- deployment.yaml

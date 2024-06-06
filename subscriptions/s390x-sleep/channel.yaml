@@ -1,8 +1,0 @@
-apiVersion: apps.open-cluster-management.io/v1
-kind: Channel
-metadata:
-  name: s390x-sleep-channel
-  namespace: s390x-sleep-ch
-spec:
-  type: GitHub
-  pathname: https://github.com/open-cluster-management/application-samples.git
