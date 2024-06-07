@@ -31,8 +31,10 @@ spec:
           fi
 
           # Capture the name of the newest CR
+          echo "running in namespace: $JOB_NAMESPACE"
+          echo "using Label selector: $LABEL_SELECTOR "
           NEWEST_SNAPSHOT_NAME=$(kubectl get applicationsnapshot -n $JOB_NAMESPACE -l dataservices.nutanix.com/app-protection-plan=$LABEL_SELECTOR -o json | jq -r '.items | sort_by(.status.creationtime) | last | .metadata.name')
-          
+          echo "found following snapshot name: $NEWEST_SNAPSHOT_NAME"
           # Check if NEWEST_SNAPSHOT_NAME is empty
           if [ -z "$NEWEST_SNAPSHOT_NAME" ]; then
             echo "No CR found with label dataservices.nutanix.com/app-protection-plan=$LABEL_SELECTOR"
