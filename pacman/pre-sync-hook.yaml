@@ -9,6 +9,7 @@ spec:
   template:
     spec:
       containers:
+      serviceAccount: pacman
       - name: restore-latest-snapshot-pod
         env:
         - name: LABEL_SELECTOR
