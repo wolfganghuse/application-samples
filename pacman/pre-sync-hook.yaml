@@ -38,7 +38,7 @@ spec:
             echo "No CR found with label dataservices.nutanix.com/app-protection-plan=$LABEL_SELECTOR"
             exit 1
           fi
-          
+          echo "Create ApplicationSnapshotRestore from $NEWEST_SNAPSHOT_NAME"
           # Create a YAML file for the new dummy Custom Resource
           cat <<EOF | kubectl create -f -
             apiVersion: dataservices.nutanix.com/v1alpha1
