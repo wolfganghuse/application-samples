@@ -9,6 +9,9 @@ rules:
 - apiGroups: [""]
   resources: ["namespaces"]
   verbs: ["get"]
+- apiGroups: ["dataservices.nutanix.com"]
+  resources: ["applicationsnapshotrestores"]
+  verbs: ["create"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
