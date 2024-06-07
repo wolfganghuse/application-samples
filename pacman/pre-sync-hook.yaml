@@ -51,6 +51,7 @@ spec:
             spec:
               applicationSnapshotName: $NEWEST_SNAPSHOT_NAME
           EOF
+          sleep 10
           # Apply the new CR
       restartPolicy: Never
   backoffLimit: 1
