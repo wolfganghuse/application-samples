@@ -3,8 +3,6 @@ kind: Job
 metadata:
   name: initialrestore
   annotations:
-metadata:
-  annotations:
     argocd.argoproj.io/sync-wave: "-2"
     #argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
