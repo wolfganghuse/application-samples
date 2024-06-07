@@ -47,8 +47,8 @@ spec:
               generateName: restore-
               namespace: $JOB_NAMESPACE
             spec:
-              applicationSnapshotName: pacman-snapshot
-            EOF
+              applicationSnapshotName: $NEWEST_SNAPSHOT_NAME
+          EOF
           # Apply the new CR
       restartPolicy: Never
   backoffLimit: 1
