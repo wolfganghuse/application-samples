@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: initialrestore-
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    #argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+      - name: restore-latest-snapshot-pod
+        env:
+        - name: LABEL_SELECTOR
+          value: "pacmanprotect-policy" 
+        - name: JOB_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: bitnami/kubectl:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          # Check if the namespace has the label dev=restore
+          NAMESPACE_LABEL=$(kubectl get namespace $JOB_NAMESPACE -o jsonpath='{.metadata.labels.dev}')
+          if [ "$NAMESPACE_LABEL" != "restore" ]; then
+            echo "Namespace $JOB_NAMESPACE does not have the label dev=restore"
+            exit 0
+          fi
+          
+          # Capture the name of the newest CR
+          NEWEST_SNAPSHOT_NAME=$(kubectl get applicationsnapshot -n $JOB_NAMESPACE -l dataservices.nutanix.com/app-protection-plan=$LABEL_SELECTOR -o json | jq -r '.items | sort_by(.status.creationtime) | last | .metadata.name')
+          
+          # Check if NEWEST_SNAPSHOT_NAME is empty
+          if [ -z "$NEWEST_SNAPSHOT_NAME" ]; then
+            echo "No CR found with label dataservices.nutanix.com/app-protection-plan=$LABEL_SELECTOR"
+            exit 1
+          fi
+          
+          # Create a YAML file for the new dummy Custom Resource
+          cat <<EOF > restore-snapshot.yaml
+apiVersion: dataservices.nutanix.com/v1alpha1
+kind: ApplicationSnapshotRestore
+metadata:
+  generateName: restore-
+  namespace: $JOB_NAMESPACE
+spec:
+  applicationSnapshotName: pacman-snapshot
+EOF
+          # Apply the new CR
+          kubectl apply -f restore-snapshot.yaml
+      restartPolicy: Never
+  backoffLimit: 4
