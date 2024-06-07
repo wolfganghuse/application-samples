@@ -6,9 +6,9 @@ metadata:
     argocd.argoproj.io/hook: PreSync
     #argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
-  serviceAccount: pacman
   template:
     spec:
+      serviceAccount: pacman
       containers:
       - name: restore-latest-snapshot-pod
         env:
