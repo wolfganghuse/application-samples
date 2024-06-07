@@ -28,7 +28,7 @@ spec:
             echo "Namespace $JOB_NAMESPACE does not have the label dev=restore"
             exit 0
           fi
-          
+
           # Capture the name of the newest CR
           NEWEST_SNAPSHOT_NAME=$(kubectl get applicationsnapshot -n $JOB_NAMESPACE -l dataservices.nutanix.com/app-protection-plan=$LABEL_SELECTOR -o json | jq -r '.items | sort_by(.status.creationtime) | last | .metadata.name')
           
@@ -40,14 +40,14 @@ spec:
           
           # Create a YAML file for the new dummy Custom Resource
           cat <<EOF > restore-snapshot.yaml
-apiVersion: dataservices.nutanix.com/v1alpha1
-kind: ApplicationSnapshotRestore
-metadata:
-  generateName: restore-
-  namespace: $JOB_NAMESPACE
-spec:
-  applicationSnapshotName: pacman-snapshot
-EOF
+            apiVersion: dataservices.nutanix.com/v1alpha1
+            kind: ApplicationSnapshotRestore
+            metadata:
+              generateName: restore-
+              namespace: $JOB_NAMESPACE
+            spec:
+              applicationSnapshotName: pacman-snapshot
+            EOF
           # Apply the new CR
           kubectl apply -f restore-snapshot.yaml
       restartPolicy: Never
