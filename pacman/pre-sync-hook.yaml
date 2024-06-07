@@ -40,7 +40,7 @@ spec:
           fi
           
           # Create a YAML file for the new dummy Custom Resource
-          kubectl apply -f - <<EOF > restore-snapshot.yaml
+          kubectl apply -f - <<EOF
             apiVersion: dataservices.nutanix.com/v1alpha1
             kind: ApplicationSnapshotRestore
             metadata:
