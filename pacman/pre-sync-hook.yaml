@@ -41,14 +41,14 @@ spec:
           
           # Create a YAML file for the new dummy Custom Resource
           cat <<EOF | kubectl apply -f -
-apiVersion: dataservices.nutanix.com/v1alpha1
-kind: ApplicationSnapshotRestore
-metadata:
-  generateName: restore-
-  namespace: $JOB_NAMESPACE
-spec:
-  applicationSnapshotName: pacman-snapshot
-EOF
+            apiVersion: dataservices.nutanix.com/v1alpha1
+            kind: ApplicationSnapshotRestore
+            metadata:
+              generateName: restore-
+              namespace: $JOB_NAMESPACE
+            spec:
+              applicationSnapshotName: pacman-snapshot
+            EOF
           # Apply the new CR
       restartPolicy: Never
   backoffLimit: 1
